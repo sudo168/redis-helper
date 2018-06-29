@@ -1,17 +1,19 @@
 package net.ewant.redis.commands;
 
+import net.ewant.redis.RedisOperationException;
+
 import java.util.List;
 
 public interface RedisStringCommands {
 
-	Long append(final String key, final String value) throws Exception;
+	Long append(final String key, final String value) throws RedisOperationException;
 	
 	/**
 	 * 统计字符串被设置为1的bit数.
 	 * @param key
 	 * @return 被设置为 1 的位的数量,key不存在返回0
 	 */
-	Long bitcount(final String key) throws Exception;
+	Long bitcount(final String key) throws RedisOperationException;
 
 	/**
 	 * 统计指定范围内，字符串被设置为1的bit数.
@@ -20,23 +22,23 @@ public interface RedisStringCommands {
 	 * @param end
 	 * @return 被设置为 1 的位的数量,key不存在返回0
 	 */
-	Long bitcount(final String key, final long start, final long end) throws Exception;
+	Long bitcount(final String key, final long start, final long end) throws RedisOperationException;
 
 	/**
 	 * @param destKey
 	 * @param srcKeys
 	 * @return
 	 */
-	Long bitopAnd(final String destKey, final String... srcKeys) throws Exception;
-	Long bitopOr(final String destKey, final String... srcKeys) throws Exception;
-	Long bitopXor(final String destKey, final String... srcKeys) throws Exception;
-	Long bitopNot(final String destKey, final String... srcKeys) throws Exception;
+	Long bitopAnd(final String destKey, final String... srcKeys) throws RedisOperationException;
+	Long bitopOr(final String destKey, final String... srcKeys) throws RedisOperationException;
+	Long bitopXor(final String destKey, final String... srcKeys) throws RedisOperationException;
+	Long bitopNot(final String destKey, final String... srcKeys) throws RedisOperationException;
 
-	Long bitpos(final String key, final boolean value) throws Exception;
+	Long bitpos(final String key, final boolean value) throws RedisOperationException;
 
-	Long bitpos(final String key, final boolean value, final long start) throws Exception;
+	Long bitpos(final String key, final boolean value, final long start) throws RedisOperationException;
 
-	Long bitpos(final String key, final boolean value, final long start, final long end) throws Exception;
+	Long bitpos(final String key, final boolean value, final long start, final long end) throws RedisOperationException;
 
 	/**
 	 * 对key对应的数字做减1操作.如果key不存在，那么在操作之前，这个key对应的值会被置为0
@@ -44,7 +46,7 @@ public interface RedisStringCommands {
 	 * @return 减小之后的value . ERROR when value is not an integer or out of range
 	 * 最大支持在64位有符号的整型数字
 	 */
-	Long decr(final String key) throws Exception;
+	Long decr(final String key) throws RedisOperationException;
 
 	/**
 	 * 对key对应的数字做减decrement操作.如果key不存在，那么在操作之前，这个key对应的值会被置为0
@@ -53,14 +55,14 @@ public interface RedisStringCommands {
 	 * @return 减小之后的value . ERROR when value is not an integer or out of range
 	 * 最大支持在64位有符号的整型数字
 	 */
-	Long decrBy(final String key, final long decrement) throws Exception;
+	Long decrBy(final String key, final long decrement) throws RedisOperationException;
 
 	/**
 	 * 获取key对应的值
 	 * @param key
 	 * @return 返回key的value。如果key不存在，返回特殊值nil。如果key的value不是string，就返回错误
 	 */
-	String get(final String key) throws Exception;
+	String get(final String key) throws RedisOperationException;
 
 	/**
 	 * 返回key对应的string在offset处的bit值 当offset超出了字符串长度的时候，
@@ -70,7 +72,7 @@ public interface RedisStringCommands {
 	 * @param offset
 	 * @return 在offset处的bit值 (0/1 即false/true)
 	 */
-	Boolean getbit(final String key, final long offset) throws Exception;
+	Boolean getbit(final String key, final long offset) throws RedisOperationException;
 
 	/**
 	 * 这个命令是被改成GETRANGE的，在小于2.0的Redis版本中叫SUBSTR。
@@ -82,7 +84,7 @@ public interface RedisStringCommands {
 	 * @param endOffset
 	 * @return
 	 */
-	String getRange(final String key, final long startOffset, final long endOffset) throws Exception;
+	String getRange(final String key, final long startOffset, final long endOffset) throws RedisOperationException;
 
 	/**
 	 * 自动将key对应到value并且返回原来key对应的value。如果key存在但是对应的value不是字符串，就返回错误。
@@ -90,7 +92,7 @@ public interface RedisStringCommands {
 	 * @param value
 	 * @return 返回之前的旧值，如果之前Key不存在将返回nil。
 	 */
-	String getSet(final String key, final String value) throws Exception;
+	String getSet(final String key, final String value) throws RedisOperationException;
 
 	/**
 	 * 对存储在指定key的数值执行原子的加1操作。
@@ -101,28 +103,28 @@ public interface RedisStringCommands {
 	 * @param key
 	 * @return 执行递增操作后key对应的值
 	 */
-	Long incr(final String key) throws Exception;
+	Long incr(final String key) throws RedisOperationException;
 
-	Long incrBy(final String key, final long increment) throws Exception;
+	Long incrBy(final String key, final long increment) throws RedisOperationException;
 
-	Double incrByFloat(final String key, final double increment) throws Exception;
+	Double incrByFloat(final String key, final double increment) throws RedisOperationException;
 
-	List<String> mget(final String... keys) throws Exception;
+	List<String> mget(final String... keys) throws RedisOperationException;
 
 	/**
 	 * @param keysvalues
 	 * @return 总是OK，因为MSET不会失败。
 	 */
-	String mset(final String... keysvalues) throws Exception;
+	String mset(final String... keysvalues) throws RedisOperationException;
 
 	/**
 	 * @param keysvalues
 	 * @return Integer reply, specifically: 1 if the all the keys were set 0 if no key was set (at
      *         least one key already existed)
 	 */
-	Long msetnx(final String... keysvalues) throws Exception;
+	Long msetnx(final String... keysvalues) throws RedisOperationException;
 
-	String set(final String key, String value) throws Exception;
+	String set(final String key, String value) throws RedisOperationException;
 
 	/**
 	 *
@@ -132,7 +134,7 @@ public interface RedisStringCommands {
 	 *          if it already exist.
 	 * @return
 	 */
-	String set(final String key, final String value, final String nxxx) throws Exception;
+	String set(final String key, final String value, final String nxxx) throws RedisOperationException;
 
 	/**
 	 *
@@ -141,9 +143,9 @@ public interface RedisStringCommands {
 	 * @return Integer reply, specifically: 1 if the key was set 0 if the key was not set
 	 * @throws Exception
 	 */
-	Long setNx(final String key, final String value) throws Exception;
+	Long setNx(final String key, final String value) throws RedisOperationException;
 
-	String setEx(final String key, final int seconds, final String value) throws Exception;
+	String setEx(final String key, final int seconds, final String value) throws RedisOperationException;
 
 	/**
 	   * Set the string value as value of the key. The string can't be longer than 1073741824 bytes (1
@@ -157,7 +159,7 @@ public interface RedisStringCommands {
 	   * @return Status code reply
 	   */
 	String set(final String key, final String value, final String nxxx, final String expx,
-               final long time) throws Exception;
+               final long time) throws RedisOperationException;
 	
 	/**
 	 * Sets or clears the bit at offset in the string value stored at key
@@ -166,7 +168,7 @@ public interface RedisStringCommands {
 	 * @param value
 	 * @return
 	 */
-	Boolean setbit(String key, long offset, boolean value) throws Exception;
+	Boolean setbit(String key, long offset, boolean value) throws RedisOperationException;
 	
 	/**
 	 * @param key
@@ -174,12 +176,12 @@ public interface RedisStringCommands {
 	 * @param value
 	 * @return 该命令修改后的字符串长度
 	 */
-	Long setRange(String key, long offset, String value) throws Exception;
+	Long setRange(String key, long offset, String value) throws RedisOperationException;
 	
 	/**
 	 * 返回key的string类型value的长度。如果key对应的非string类型，就返回错误。
 	 * @param key
 	 * @return key对应的字符串value的长度，或者0（key不存在）
 	 */
-	Long strlen(final String key) throws Exception;
+	Long strlen(final String key) throws RedisOperationException;
 }
