@@ -2,14 +2,16 @@ package net.ewant.redis.connect;
 
 import net.ewant.redis.CommandsExecutor;
 import net.ewant.redis.factory.RedisConnectionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisCommands;
 
 import java.util.List;
 
 public abstract class AbstractRedisConnection implements RedisConnection {
-	
-	// private static Logger log = LoggerFactory.getLogger(AbstractRedisConnection.class);
+
+	final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	private int selectedDB;
 	

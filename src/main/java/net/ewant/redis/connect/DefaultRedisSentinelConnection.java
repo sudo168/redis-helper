@@ -3,17 +3,14 @@ package net.ewant.redis.connect;
 import net.ewant.redis.RedisOperationException;
 import net.ewant.redis.factory.RedisConnectionFactory;
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
-import redis.clients.jedis.BitPosParams;
-import redis.clients.jedis.ShardedJedis;
-import redis.clients.jedis.ShardedJedisPipeline;
-import redis.clients.jedis.Tuple;
+import redis.clients.jedis.*;
 import redis.clients.jedis.params.sortedset.ZAddParams;
 import redis.clients.jedis.params.sortedset.ZIncrByParams;
 
 import java.util.*;
 
 public class DefaultRedisSentinelConnection extends AbstractRedisConnection implements RedisSentinelConnection {
-	
+
 	ShardedJedis sources;
 	
 	private int db;
@@ -180,7 +177,10 @@ public class DefaultRedisSentinelConnection extends AbstractRedisConnection impl
 
 	@Override
 	public boolean rename(String key, String newKey) throws RedisOperationException {
-		throw new RedisOperationException("not support command [rename] in " + sources.getClass().getName());
+		logger.warn("Attention please. An unsafe operation 'rename' in Sentinel connection mode! Please make sure there is only one redis server node in your config or both of old key and new key are in the same sharding range.");
+		Jedis shard = sources.getShard(key);
+		shard.select(db);
+		return "OK".equals(shard.rename(key,newKey));
 	}
 
 	@Override
