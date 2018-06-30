@@ -12,7 +12,7 @@ import java.util.*;
  * @author huangzh  <没有使用>
  * @date 2017年8月31日
  */
-public class CommandsExecutor implements RedisCommands{
+public class CommandsExecutor implements RedisCommands {
 	
 	JedisCommands sources;
 	

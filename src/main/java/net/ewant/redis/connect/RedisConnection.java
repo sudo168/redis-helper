@@ -6,7 +6,7 @@ import net.ewant.redis.factory.RedisConnectionFactory;
 
 import java.util.List;
 
-public interface RedisConnection extends RedisCommands{
+public interface RedisConnection extends RedisCommands {
 	
 	CommandsExecutor getCommandsExecutor();
 	

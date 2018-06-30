@@ -4,6 +4,7 @@ import net.ewant.redis.RedisConfiguration;
 import net.ewant.redis.RedisConfiguration.HostAndPort;
 import net.ewant.redis.RedisConfiguration.*;
 import net.ewant.redis.connect.*;
+import net.ewant.rolling.redis.connect.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.*;
 

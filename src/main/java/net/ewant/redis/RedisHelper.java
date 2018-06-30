@@ -1,8 +1,8 @@
 package net.ewant.redis;
 
 import net.ewant.redis.commands.RedisCommands;
-import net.ewant.redis.connect.RedisConnection;
 import net.ewant.redis.factory.RedisConnectionFactory;
+import net.ewant.redis.connect.RedisConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

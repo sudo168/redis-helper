@@ -1,7 +1,6 @@
 package net.ewant.redis.factory;
 
 import net.ewant.redis.RedisConfiguration;
-import net.ewant.redis.RedisConfiguration.RedisMode;
 import net.ewant.redis.commands.RedisCommands;
 import net.ewant.redis.connect.AbstractRedisConnection;
 import net.ewant.redis.connect.RedisConnection;
@@ -29,7 +28,7 @@ public abstract class AbstractRedisConnectionFactory implements RedisConnectionF
 	
 	protected RedisConfiguration config;
 	
-	protected RedisMode redisMode;
+	protected RedisConfiguration.RedisMode redisMode;
 	
 	protected Object pool;
 
@@ -43,11 +42,11 @@ public abstract class AbstractRedisConnectionFactory implements RedisConnectionF
 	protected RedisConnection getConnection(int retryCount) throws Exception {
 		RedisConnection connect = null;
 		try {
-			if(redisMode == RedisMode.SINGLE){
+			if(redisMode == RedisConfiguration.RedisMode.SINGLE){
 				connect = getSingleConnection();
-			}else if(redisMode == RedisMode.SENTINEL){
+			}else if(redisMode == RedisConfiguration.RedisMode.SENTINEL){
 				connect = getSentinelConnection();
-			}else if(redisMode == RedisMode.CLUSTER){
+			}else if(redisMode == RedisConfiguration.RedisMode.CLUSTER){
 				connect = getClusterConnection();
 			}
 		} catch (Exception e) {
