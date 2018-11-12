@@ -21,29 +21,15 @@ public class RedisBeanDefinitionRegistryProcessor implements BeanDefinitionRegis
 
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-        registerComponetProcessorBean(registry);
-        registerRedisBean(registry);
+        registerComponentProcessorBean(registry);
     }
 
-    private void registerComponetProcessorBean(BeanDefinitionRegistry registry){
+    private void registerComponentProcessorBean(BeanDefinitionRegistry registry){
         RedisClassPathBeanDefinitionScanner scanner = new RedisClassPathBeanDefinitionScanner(registry, true, environment, null);
         Set<BeanDefinitionHolder> beanDefinitionHolders = scanner.doScan(SCANNER_PACKAGE);
         for (BeanDefinitionHolder beanDefinitionHolder : beanDefinitionHolders){
             registry.registerBeanDefinition(beanDefinitionHolder.getBeanName(), beanDefinitionHolder.getBeanDefinition());
         }
-    }
-
-    private void registerRedisBean(BeanDefinitionRegistry registry){
-
-        RootBeanDefinition redisConnectionBeanDefinition = new RootBeanDefinition();
-        redisConnectionBeanDefinition.setBeanClass(JedisConnectionFactory.class);
-        redisConnectionBeanDefinition.setRole(BeanDefinition.ROLE_APPLICATION);
-        registry.registerBeanDefinition(JedisConnectionFactory.class.getSimpleName(), redisConnectionBeanDefinition);
-
-        RootBeanDefinition redisHelperBeanDefinition = new RootBeanDefinition();
-        redisHelperBeanDefinition.setBeanClass(RedisHelper.class);
-        redisHelperBeanDefinition.setRole(BeanDefinition.ROLE_APPLICATION);
-        registry.registerBeanDefinition(RedisHelper.class.getSimpleName(), redisHelperBeanDefinition);
     }
 
     @Override

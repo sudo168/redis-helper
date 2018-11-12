@@ -1,7 +1,9 @@
 package net.ewant.redis;
 
+import net.ewant.redis.factory.JedisConnectionFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
@@ -364,5 +366,15 @@ public class RedisConfiguration {
 		public void setPort(int port) {
 			this.port = port;
 		}
+	}
+
+	@Bean
+	public JedisConnectionFactory createJedisConnectionFactory(RedisConfiguration config){
+		return new JedisConnectionFactory(config);
+	}
+
+	@Bean
+	public RedisHelper createRedisHelper(){
+		return new RedisHelper();
 	}
 }
