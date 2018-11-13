@@ -25,7 +25,7 @@ public class RedisDistributeLock {
     private static final int DEFAULT_LOCK_TIMEOUT = 120;
     // 默认锁等待机制,毫秒
     private static final int DEFAULT_LOCK_WAIT_TIMEOUT = 3000;
-    private static final String LOCK_KEY_SUFFIX = "_SF-LOCK";
+    private static final String LOCK_KEY_PREFIX = "RD-LOCK:";
     /**
      * 标记当前锁时间
      * 解决问题：
@@ -57,7 +57,7 @@ public class RedisDistributeLock {
             if (StringUtils.isBlank(key)) {
                 return false;
             }
-            key += LOCK_KEY_SUFFIX;
+            key = LOCK_KEY_PREFIX + key;
             Map<String, Long> localMap = CURRENT_LOCKED_TIME.get();
             if (localMap != null) {
                 Long startLock = localMap.get(key);
@@ -139,7 +139,7 @@ public class RedisDistributeLock {
             if (StringUtils.isBlank(key)) {
                 return false;
             }
-            key += LOCK_KEY_SUFFIX;
+            key = LOCK_KEY_PREFIX + key;
             Long startLock = CURRENT_LOCKED_TIME.get().get(key);
             if (startLock != null) {// 有锁
                 Map<String, Integer> relockMap = RELOCK_COUNT.get();
