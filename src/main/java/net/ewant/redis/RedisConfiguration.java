@@ -1,6 +1,9 @@
 package net.ewant.redis;
 
 import net.ewant.redis.factory.JedisConnectionFactory;
+import net.ewant.redis.utils.AskTodoInCluster;
+import net.ewant.redis.utils.RedisDistributeLock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -375,6 +378,13 @@ public class RedisConfiguration {
 
 	@Bean
 	public RedisHelper createRedisHelper(){
-		return new RedisHelper();
+		RedisHelper redisHelper = new RedisHelper();
+		componentConfig(redisHelper, this);
+		return redisHelper;
+	}
+
+	private void componentConfig(RedisHelper redisHelper, RedisConfiguration config){
+		RedisDistributeLock.setRedisHelper(redisHelper);
+		AskTodoInCluster.init(redisHelper, String.valueOf(config.getClusterId()));
 	}
 }
