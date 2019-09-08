@@ -3,7 +3,6 @@ package net.ewant.redis;
 import net.ewant.redis.factory.JedisConnectionFactory;
 import net.ewant.redis.utils.AskTodoInCluster;
 import net.ewant.redis.utils.RedisDistributeLock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-@ConditionalOnProperty(value = "redis.mode")
 @Configuration
+@ConditionalOnProperty(value = "redis.mode")
 @ConfigurationProperties(prefix = "redis")
 public class RedisConfiguration {
 
@@ -20,9 +19,9 @@ public class RedisConfiguration {
 	 * connectTimeout and soTimeout
 	 */
 	private int timeout = 6000;
-	
+
 	private String password;
-	
+
 	private int dbIndex;
 
 	private int clusterId;
@@ -34,17 +33,17 @@ public class RedisConfiguration {
 	 * 两次重连尝试之间的间隔，单位（秒）
 	 */
 	private int retryInterval = 3;
-	
+
 	RedisMode mode;
-	
+
 	HostAndPort single;
-	
+
 	List<RedisSentinelConfiguration> sentinel;
-	
+
 	RedisClusterConfiguration cluster;
-	
+
 	RedisPoolConfig pool;
-	
+
 	public int getTimeout() {
 		return timeout;
 	}
@@ -135,7 +134,7 @@ public class RedisConfiguration {
 	public void setPool(RedisPoolConfig pool) {
 		this.pool = pool;
 	}
-	
+
 	public static enum RedisMode{
 		SINGLE(0),SENTINEL(1),CLUSTER(2);
 		private int value;
@@ -156,7 +155,7 @@ public class RedisConfiguration {
 		 * 哨兵ip端口信息
 		 */
 		private List<HostAndPort> nodes;
-		
+
 		public String getMaster() {
 			return master;
 		}
@@ -170,13 +169,13 @@ public class RedisConfiguration {
 			this.nodes = nodes;
 		}
 	}
-	
+
 	public static class RedisClusterConfiguration{
 		/**
 		 * 连接重试次数
 		 */
 		private int maxRetry = 5;
-		
+
 		/**
 		 * 集群节点ip端口信息
 		 */
@@ -199,7 +198,7 @@ public class RedisConfiguration {
 		}
 
 	}
-	
+
 	public static class RedisPoolConfig{
 		/**
 		 * 后进先出
@@ -261,7 +260,7 @@ public class RedisConfiguration {
 		 * 最小空闲连接数
 		 */
 	    private int minIdle = 0;
-	    
+
 		public boolean isLifo() {
 			return lifo;
 		}
@@ -353,7 +352,7 @@ public class RedisConfiguration {
 			this.minIdle = minIdle;
 		}
 	}
-	
+
 	public static class HostAndPort{
 		private String host;
 		private int port;

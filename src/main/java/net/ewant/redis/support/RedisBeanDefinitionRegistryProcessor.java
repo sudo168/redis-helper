@@ -26,10 +26,11 @@ public class RedisBeanDefinitionRegistryProcessor implements BeanDefinitionRegis
 
     private void registerComponentProcessorBean(BeanDefinitionRegistry registry){
         RedisClassPathBeanDefinitionScanner scanner = new RedisClassPathBeanDefinitionScanner(registry, true, environment, null);
-        Set<BeanDefinitionHolder> beanDefinitionHolders = scanner.doScan(SCANNER_PACKAGE);
+        scanner.doScan(SCANNER_PACKAGE);
+        /*Set<BeanDefinitionHolder> beanDefinitionHolders = scanner.doScan(SCANNER_PACKAGE);
         for (BeanDefinitionHolder beanDefinitionHolder : beanDefinitionHolders){
             registry.registerBeanDefinition(beanDefinitionHolder.getBeanName(), beanDefinitionHolder.getBeanDefinition());
-        }
+        }*/
     }
 
     @Override

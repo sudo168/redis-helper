@@ -2,13 +2,14 @@ package net.ewant.redis.utils;
 
 import net.ewant.redis.RedisDB;
 import net.ewant.redis.RedisHelper;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AskTodoInCluster {
 
 	private static String ME;
 	
-    private static final Logger logger = Logger.getLogger(AskTodoInCluster.class);
+    private static final Logger logger = LoggerFactory.getLogger(AskTodoInCluster.class);
     /**
      * 单位，秒
      */

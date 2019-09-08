@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class RedisContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
 
