@@ -28,7 +28,7 @@ public class RedisConfiguration {
 	/**
 	 * 连接意外断开时（因连接异常而拿不到连接时，执行过程中连接断开时），尝试重新获取次数。-1 表示无限次，0 表示不重试，N 为具体次数
 	 */
-	private int retry = 5;
+	private int retry = -1;
 	/**
 	 * 两次重连尝试之间的间隔，单位（秒）
 	 */
